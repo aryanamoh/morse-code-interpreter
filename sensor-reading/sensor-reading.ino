@@ -9,9 +9,13 @@
 #define BAUD_RATE 9600
 
 // Double press setup
-unsigned long greenPressTime = 0;
-bool longPress = false;
-bool shortPress = false;
+unsigned long pressTimeGreen = 0;
+bool longPressGreen = false;
+bool shortPressGreen = false;
+
+unsigned long pressTimeBlue = 0;
+bool longPressBlue = false;
+bool shortPressBlue = false;
 
 // Single press setup
 int buttonStateBlue = LOW;
@@ -57,28 +61,28 @@ void loop() {
 
 }
 
-void blueButton() {
-  // Single press checker
+// void blueButton() {
+//   // Single press checker
 
-  int nowButtonStateBlue = digitalRead(PIN_BLUE);
+//   int nowButtonStateBlue = digitalRead(PIN_BLUE);
 
-  // If button pin state has changed, record the time point
-  if (nowButtonStateBlue != lastButtonStateBlue) {
-    lastChangeTimeBlue = millis();
-  }
+//   // If button pin state has changed, record the time point
+//   if (nowButtonStateBlue != lastButtonStateBlue) {
+//     lastChangeTimeBlue = millis();
+//   }
 
-  if (millis() - lastChangeTimeBlue > 10) {
-    if (buttonStateBlue != nowButtonStateBlue) {
-      buttonStateBlue = nowButtonStateBlue;
+//   if (millis() - lastChangeTimeBlue > 10) {
+//     if (buttonStateBlue != nowButtonStateBlue) {
+//       buttonStateBlue = nowButtonStateBlue;
 
-      // Button was pressed
-      if (buttonStateBlue == HIGH) {
-        Serial.println("space");
-      }
-    } 
-  }
-  lastButtonStateBlue = nowButtonStateBlue; // Save the state of last button
-}
+//       // Button was pressed
+//       if (buttonStateBlue == HIGH) {
+//         Serial.println("space");
+//       }
+//     } 
+//   }
+//   lastButtonStateBlue = nowButtonStateBlue; // Save the state of last button
+// }
 
 
 void redButton() {
@@ -132,37 +136,78 @@ void greenButton() {
     // Check green button press
    if (digitalRead(PIN_GREEN) == LOW) {
       
-      greenPressTime = 0;
+      pressTimeGreen = 0;
 
       // Check if button was being pressed
-      if (longPress) {
+      if (longPressGreen) {
         Serial.println("-");
-        longPress = false;
-        shortPress = false;
-      } else if (shortPress) {
+        longPressGreen = false;
+        shortPressGreen = false;
+      } else if (shortPressGreen) {
         Serial.println(".");
-        shortPress = false;
+        shortPressGreen = false;
       }
 
     } else { 
       // Start press
-      if (greenPressTime == 0) {
-        greenPressTime = millis();
+      if (pressTimeGreen == 0) {
+        pressTimeGreen = millis();
       }
 
-      unsigned long elapsedTime = millis() - greenPressTime;
+      unsigned long elapsedTime = millis() - pressTimeGreen;
 
       // Check for long press
-      if (!longPress) {
+      if (!longPressGreen) {
         if (elapsedTime > 500) {
-          longPress = true;
+          longPressGreen = true;
         }
       }
 
       // Check for short press
-      if (!shortPress) {
+      if (!shortPressGreen) {
         if (elapsedTime > 10) {
-          shortPress = true;
+          shortPressGreen = true;
+        }
+      }
+    }
+}
+
+
+void blueButton() {
+    // Check green button press
+   if (digitalRead(PIN_BLUE) == LOW) {
+      
+      pressTimeBlue = 0;
+
+      // Check if button was being pressed
+      if (longPressBlue) {
+        Serial.println("doublespace");
+        longPressBlue = false;
+        shortPressBlue = false;
+      } else if (shortPressBlue) {
+        Serial.println("space");
+        shortPressBlue = false;
+      }
+
+    } else { 
+      // Start press
+      if (pressTimeBlue == 0) {
+        pressTimeBlue = millis();
+      }
+
+      unsigned long elapsedTime = millis() - pressTimeBlue;
+
+      // Check for long press
+      if (!longPressBlue) {
+        if (elapsedTime > 500) {
+          longPressBlue = true;
+        }
+      }
+
+      // Check for short press
+      if (!shortPressBlue) {
+        if (elapsedTime > 10) {
+          shortPressBlue = true;
         }
       }
     }
