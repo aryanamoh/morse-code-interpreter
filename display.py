@@ -1,6 +1,5 @@
 import serial
 import tkinter as tk
-import time
 
 import translation as mc
 
