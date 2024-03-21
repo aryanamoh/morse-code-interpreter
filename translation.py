@@ -30,10 +30,14 @@ def morse_to_text(morse_code):
     text = ''
     morse_code = morse_code.split(' ')
     for code in morse_code:
+        found = False
         for char, morse in MORSE_CODE_DICT.items():
             if code == morse:
                 text += char
+                found = True
                 break
+        if not found:
+            text += " " + code + " "
     return text
 
 
