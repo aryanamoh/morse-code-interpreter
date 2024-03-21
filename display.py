@@ -20,6 +20,7 @@ word = ""
 fontSizes = [10, 12, 18, 24, 30, 36, 48, 60, 72, 96]
 backgroundColor = "#4E4B5C"
 fontColor = "#EDF2F4"
+begin = True
 
 
 
@@ -29,9 +30,15 @@ fontColor = "#EDF2F4"
 
 def update_display():
     global word
+    global begin
     
     if ser.in_waiting > 0:
         # Read data from serial port
+        if begin:
+            labels[2].config(font=("Lato", 34))
+            begin = False
+
+        
         data = ser.readline().decode().strip()
         print(data)
         
@@ -81,9 +88,15 @@ for i in range(3):
         label = tk.Label(root, text="", font=("Lato", round(34*1.5), "bold"), fg=fontColor, bg=backgroundColor)
         label.pack(pady=30)  
 
-    else:
-        label = tk.Label(root, text="", font=("Lato", 34), fg=fontColor, bg=backgroundColor)
+    elif i==1:
+        label = tk.Label(root, text="Start creating sequences to begin!", font=("Lato", 34), fg=fontColor, bg=backgroundColor)
         label.pack(pady=5)  
+        
+    else:
+        label = tk.Label(root, text="Press the green button for dots and press and hold for dashes.", font=("Lato", 18), fg=fontColor, bg=backgroundColor)
+        label.pack(pady=5)  
+        
+    
     labels.append(label)
 
 labels[0].config(text="Morse Code to Text")
