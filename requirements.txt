@@ -1,0 +1,6 @@
+colorzero==2.0
+importlib-metadata==4.13.0
+importlib-resources==5.13.0
+pycrypto==2.6.1
+pyserial==3.5
+zipp==3.18.1
