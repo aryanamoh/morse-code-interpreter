@@ -71,7 +71,7 @@ This code powers the Morse Code interpretation tool. This project uses an ESP32 
 - Turn counter-clockwise to decrease font size.
 
 
-## Details
+## Project Details
 
 ### Features
 - Real-time translation of Morse Code input from physical buttons and a potentiometer.
