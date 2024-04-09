@@ -54,10 +54,22 @@ This code powers the Morse Code interpretation tool. This project uses an ESP32 
 
 ## Usage
 
-TODO:
-- Instructions for interacting with the physical buttons and potentiometer.
-- Examples of Morse Code sequences and their translations.
-- Any special considerations or limitations users should be aware of.
+### Write Button
+- Short press: prints a dot (.)
+- Long press (> 500 ms): prints a dash (-)
+
+### Space Button
+- Short press: indicates a new letter is starting
+- Long press (> 500 ms): prints a whitespace (i.e., indicates a new word is starting)
+
+### Delete Button
+- Press once to clear all generated text.
+
+### Font Size Dial
+- On the first usage of the dial, the font size syncs up to the dial's location.
+- Turn clockwise to increase font size.
+- Turn counter-clockwise to decrease font size.
+
 
 ## Details
 
